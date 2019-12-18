@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCore.RouteAnalyzer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ namespace PartyInvites
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //https://github.com/kobake/AspNetCore.RouteAnalyzer
+            services.AddRouteAnalyzer(); // Add
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +45,8 @@ namespace PartyInvites
 
             app.UseMvc(routes =>
             {
+                //https://stackoverflow.com/questions/41908957/get-all-registered-routes-in-asp-net-core
+                routes.MapRouteAnalyzer("/routes"); // Add
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
